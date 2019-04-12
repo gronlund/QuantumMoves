@@ -217,7 +217,7 @@ def uniform_init(size, low=-1.0, high=1.0):
 
 def gauss_init(size, mean=0.0, std=0.25):
     """ Protocol init - gaussian """
-    print('random init')
+    print('normal random init')
     start = np.random.normal(size=(size, 1), loc=mean, scale=std)
     start[-1] = 0.55
     return start
@@ -275,11 +275,13 @@ def run(Q_params, lr, rounds=1, start_protocol=None):
         if loss.numpy() < best_loss:
             best_prot = cur_params.copy()
             best_loss = loss.numpy()
-            print('--- updating best --- ', 1.0 - best_loss)
+            #print('--- updating best --- ', 1.0 - best_loss)
+            print('round {0}: fidel {1}, grad_norm {2}, New Best'.format(i, 1.0-loss, grad_norm))
             drop = max(drop - 1, 0)
         else:
             drop = drop + 1
-        
+            print('round {0}: fidel {1}, grad_norm {2}'.format(i, 1.0-loss, grad_norm))
+
         tmp = params.numpy()
         tmp = np.clip(tmp, a_min=-1, a_max=1)
         tmp[-1] = -0.55
@@ -287,7 +289,6 @@ def run(Q_params, lr, rounds=1, start_protocol=None):
         # change to just using watch in gradient tape perhaps later        
 
         hist.append(loss.numpy())
-        print('round {0}: fidel {1}, grad_norm {2}'.format(i, 1.0-loss, grad_norm))
         if best_loss <= 0.001:
             print('goal achieved')
             break
