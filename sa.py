@@ -293,7 +293,7 @@ class Quantum():
         
         if unitaries is None:
             unitaries = self.unitaries
-        print('unitary dtype', unitaries[0].dtype)
+        #print('unitary dtype', unitaries[0].dtype)
         fix_start = self.fix_start
         path = []
         all_fidelities = []
@@ -380,10 +380,11 @@ class Quantum():
                 #assert np.allclose(tmp_fidel, best_score), 'check fideilty please'
                 #protocol[-1] = len(unitaries)-1
             round_end_time = time.time()
-            print(f'time per epoch {round_end_time - round_start_time}')
+            epoch_time = round_end_time - round_start_time
+            #print(f'time per epoch {epoch_time:.3f}')
             fid = self.fidelity(protocol, unitaries)
             path.append(fid)
-            print(f'New fidelity: {fid} - improvement {total_improv}')
+            print(f'New fidelity: {fid:.5f} - epoch time {epoch_time:.3f}')  #- improvement {total_improv}')
             if (not improv) and (total_improv < 5e-10):
                 print('Not enough improvement - Stop this thing', total_improv)
                 break
