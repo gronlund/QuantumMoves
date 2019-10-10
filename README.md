@@ -4,4 +4,4 @@ showing that basic algorithms easily beat human gamers.
 
 See the notebooks for how to run each algorithm.
 
-See [here](https://arxiv.org/abs/1904.01008) for a longer explanation.
+See [here](https://arxiv.org/abs/1904.01008) for a longer explanation of the methods tested.
